@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Modern Form | Kehinde Victor Maphellous</title>
+
+  <!-- Bootstrap -->
+  <link href="css/bootstrap.min.css1.css" rel="stylesheet">
+  <script src="js/jquery-3.7.1.min.js"></script>
+
+  <style>
+    body {
+      background: url('img/viccc.png') no-repeat center center/cover;
+      height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: "Poppins", sans-serif;
+    }
+
+    .card {
+      background: rgba(255, 255, 255, 0.85);
+      border-radius: 20px;
+      box-shadow: 0 8px 25px rgba(0, 100, 200, 0.2);
+      width: 100%;
+      max-width: 450px;
+      backdrop-filter: blur(10px);
+      display: none;
+    }
+
+    .card-header {
+      background: linear-gradient(135deg, #007bff, #00bfff);
+      color: white;
+      text-align: center;
+      font-weight: 600;
+      font-size: 1.3rem;
+      padding: 1rem;
+      border-top-left-radius: 20px;
+      border-top-right-radius: 20px;
+      letter-spacing: 1px;
+    }
+
+    .form-label {
+      font-weight: 500;
+      color: #333;
+    }
+
+    .form-control {
+      border-radius: 10px;
+      border: 1px solid #cce0ff;
+      box-shadow: none;
+      transition: all 0.3s ease;
+    }
+
+    .form-control:focus {
+      border-color: #007bff;
+      box-shadow: 0 0 8px rgba(0, 123, 255, 0.2);
+    }
+
+    .btn-primary {
+      background: linear-gradient(135deg, #007bff, #00bfff);
+      border: none;
+      border-radius: 10px;
+      font-weight: 500;
+      transition: all 0.3s ease;
+      width: 100%;
+    }
+
+    .btn-primary:hover {
+      background: linear-gradient(135deg, #0062cc, #0090e0);
+      transform: translateY(-2px);
+    }
+  </style>
+</head>
+<body>
+
+  <div class="card">
+    <div class="card-header">
+      Contact Form
+    </div>
+    <div class="card-body">
+      <form>
+        <div class="mb-3">
+          <label class="form-label">Full Name</label>
+          <input type="text" class="form-control" placeholder="Enter your name" required>
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label">Email</label>
+          <input type="email" class="form-control" placeholder="Enter your email" required>
+        </div>
+
+        <div class="row">
+          <div class="col-md-6 mb-3">
+            <label class="form-label">Date</label>
+            <input type="date" class="form-control">
+          </div>
+          <div class="col-md-6 mb-3">
+            <label class="form-label">Time</label>
+            <input type="time" class="form-control">
+          </div>
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label">Country</label>
+          <input type="text" class="form-control" placeholder="Enter your country">
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label">State</label>
+          <input type="text" class="form-control" placeholder="Enter your state">
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label">ZIP Code</label>
+          <input type="text" class="form-control" placeholder="Enter ZIP code">
+        </div>
+
+        <button type="submit" class="btn btn-primary mt-2">Submit</button>
+      </form>
+    </div>
+  </div>
+
+  <script>
+    $(document).ready(function(){
+      $(".card").fadeIn(1000);
+    });
+  </script>
+
+</body>
+</html>
