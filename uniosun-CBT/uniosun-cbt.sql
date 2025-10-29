@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Oct 28, 2025 at 01:35 PM
+-- Generation Time: Oct 29, 2025 at 10:38 AM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.1.25
 
@@ -53,6 +53,39 @@ INSERT INTO `courses` (`id`, `department`, `course_code`, `course_title`, `level
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `department`
+--
+
+CREATE TABLE `department` (
+  `id` int(11) NOT NULL,
+  `department_name` varchar(150) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `level`
+--
+
+CREATE TABLE `level` (
+  `id` int(11) NOT NULL,
+  `level_name` varchar(10) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `semester`
+--
+
+CREATE TABLE `semester` (
+  `id` int(11) NOT NULL,
+  `semaster_name` enum('fisrt','second') NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `students`
 --
 
@@ -60,11 +93,21 @@ CREATE TABLE `students` (
   `id` int(11) NOT NULL,
   `matric_number` varchar(50) NOT NULL,
   `full_name` varchar(100) NOT NULL,
-  `level` enum('100','200','300','400','500','600') NOT NULL,
-  `department` enum('Accounting','Agricultural Economics','Agricultural Extension and Rural Development','Agronomy','Animal Science','Anatomy','Arabic and Islamic Studies','Architecture','Banking and Finance','Biochemistry','Biological Sciences','Biomedical Engineering','Botany','Building','Business Administration','Chemical Engineering','Chemistry','Christian Religious Studies','Civil Engineering','Common and Islamic Law','Computer Science','Computer Engineering','Crop Production','Cyber Security','Dentistry','Economics','Education and Accounting','Education and Biology','Education and Chemistry','Education and Economics','Education and English','Education and Geography','Education and Guidance and Counselling','Education and History','Education and Integrated Science','Education and Mathematics','Education and Physics','Education and Political Science','Education and Social Studies','Educational Management','Electrical and Electronics Engineering','English and International Studies','Entrepreneurship','Environmental Management','Estate Management','Fisheries and Wildlife Management','Food Science and Technology','Forestry','French','Geography','Geology','Guidance and Counselling','History and International Studies','Home Economics','Human Nutrition and Dietetics','Industrial Chemistry','Industrial Relations and Personnel Management','Information and Communication Technology','Information Science','Insurance','International Relations','Law','Library and Information Science','Linguistics','Linguistics and Communication Studies','Marketing','Mass Communication','Mathematics','Mechanical Engineering','Medical Laboratory Science','Medicine and Surgery','Microbiology','Nursing Science','Nutrition and Dietetics','Peace and Conflict Studies','Performing Arts','Philosophy','Physics with Electronics','Physiology','Plant Biology','Political Science','Public Administration','Public Health','Psychology','Quantity Surveying','Religious Studies','Sociology','Software Engineering','Statistics','Surveying and Geoinformatics','Teacher Education Science','Theatre Arts','Tourism Studies','Urban and Regional Planning','Vocational and Technical Education','Wildlife and Ecotourism Management','Yoruba') NOT NULL,
-  `semester` enum('first','second') NOT NULL,
-  `courses` varchar(100) DEFAULT NULL
+  `gender` enum('male','female') NOT NULL,
+  `level` enum('100L','200L','300L','400L','500L','600L') NOT NULL,
+  `department` varchar(50) NOT NULL,
+  `semester` enum('First Semester','Second Semester') NOT NULL,
+  `courses` varchar(100) DEFAULT NULL,
+  `password` varchar(100) NOT NULL,
+  `created_at` timestamp NOT NULL DEFAULT current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `students`
+--
+
+INSERT INTO `students` (`id`, `matric_number`, `full_name`, `gender`, `level`, `department`, `semester`, `courses`, `password`, `created_at`) VALUES
+(3, '2023/49154', 'kehinde victor', 'female', '300L', 'Anatomy', 'First Semester', NULL, '$2y$10$1hV0ns08AmeOX8K5W55wpOZg51PvfbpnIxcdYfVNMjrZu1PYllMoi', '2025-10-28 14:27:32');
 
 -- --------------------------------------------------------
 
@@ -75,17 +118,14 @@ CREATE TABLE `students` (
 CREATE TABLE `student_accounts` (
   `id` int(11) NOT NULL,
   `matric_number` varchar(50) NOT NULL,
+  `full_name` varchar(100) NOT NULL,
   `password` varchar(225) NOT NULL,
-  `created_at` timestamp NOT NULL DEFAULT current_timestamp()
+  `created_at` timestamp NOT NULL DEFAULT current_timestamp(),
+  `level` varchar(10) NOT NULL,
+  `gender` enum('male','female') NOT NULL,
+  `department` varchar(100) NOT NULL,
+  `semester` enum('first','second') NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-
---
--- Dumping data for table `student_accounts`
---
-
-INSERT INTO `student_accounts` (`id`, `matric_number`, `password`, `created_at`) VALUES
-(1, '2023/49152', '$2y$10$N4cyyucFtbsPLHldrPN.p.LWxNBer4oeYIS0tM.2salV5WfxpTxKW', '2025-10-28 09:51:47'),
-(2, '2024/45914', '$2y$10$Bed9mcRkZQHwv7YdWHHzYuhB3OYH82KKibJPPLXDwNNQMzWxSNQuy', '2025-10-28 09:53:50');
 
 --
 -- Indexes for dumped tables
@@ -95,6 +135,24 @@ INSERT INTO `student_accounts` (`id`, `matric_number`, `password`, `created_at`)
 -- Indexes for table `courses`
 --
 ALTER TABLE `courses`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `department`
+--
+ALTER TABLE `department`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `level`
+--
+ALTER TABLE `level`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `semester`
+--
+ALTER TABLE `semester`
   ADD PRIMARY KEY (`id`);
 
 --
@@ -122,10 +180,28 @@ ALTER TABLE `courses`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 
 --
+-- AUTO_INCREMENT for table `department`
+--
+ALTER TABLE `department`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT for table `level`
+--
+ALTER TABLE `level`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT for table `semester`
+--
+ALTER TABLE `semester`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+
+--
 -- AUTO_INCREMENT for table `students`
 --
 ALTER TABLE `students`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT for table `student_accounts`
